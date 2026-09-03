@@ -221,7 +221,9 @@ public class IngameGui extends AbstractGui {
          this.renderDemoOverlay();
       }
 
-      this.renderPotionEffects();
+      if (!net.lax1dude.eaglercraft.get.hud.elements.PotionHud.isSuppressingVanilla()) {
+         this.renderPotionEffects();
+      }
       if (this.mc.gameSettings.showDebugInfo) {
          this.overlayDebug.render();
       }
@@ -309,7 +311,7 @@ public class IngameGui extends AbstractGui {
          }
 
          ScoreObjective scoreobjective1 = scoreobjective != null ? scoreobjective : scoreboard.getObjectiveInDisplaySlot(1);
-         if (scoreobjective1 != null) {
+         if (scoreobjective1 != null && !net.lax1dude.eaglercraft.get.hud.elements.ScoreboardHud.isSuppressingVanilla()) {
             this.renderScoreboard(scoreobjective1);
          }
 
@@ -323,13 +325,15 @@ public class IngameGui extends AbstractGui {
          this.mc.getProfiler().endSection();
 
          this.mc.getProfiler().startSection("chat");
-         this.persistantChatGUI.render(this.ticks);
+         if (!net.lax1dude.eaglercraft.get.hud.elements.ChatHud.isSuppressingVanilla()) {
+            this.persistantChatGUI.render(this.ticks);
+         }
          this.mc.getProfiler().endSection();
          GlStateManager.popMatrix();
          scoreobjective1 = scoreboard.getObjectiveInDisplaySlot(0);
          if (!this.mc.gameSettings.keyBindPlayerList.isKeyDown() || this.mc.isIntegratedServerRunning() && this.mc.player.connection.getPlayerInfoMap().size() <= 1 && scoreobjective1 == null) {
             this.overlayPlayerList.setVisible(false);
-         } else {
+         } else if (!net.lax1dude.eaglercraft.get.hud.elements.TabListHud.isSuppressingVanilla()) {
             this.overlayPlayerList.setVisible(true);
             this.overlayPlayerList.render(this.scaledWidth, scoreboard, scoreobjective1);
          }
@@ -338,6 +342,7 @@ public class IngameGui extends AbstractGui {
       drawFps();
 
       drawSingleplayerStats();
+      net.lax1dude.eaglercraft.get.GetClient.onRenderOverlay(partialTicks);
 
       GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
       GlStateManager.disableLighting();
@@ -381,7 +386,9 @@ public class IngameGui extends AbstractGui {
 
                GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-               this.blit((this.scaledWidth - 15) / 2, (this.scaledHeight - 15) / 2, 0, 0, 15, 15);
+               if (!net.lax1dude.eaglercraft.get.GetClient.isEnabled(net.lax1dude.eaglercraft.get.modules.combat.CustomCrosshairModule.class)) {
+                  this.blit((this.scaledWidth - 15) / 2, (this.scaledHeight - 15) / 2, 0, 0, 15, 15);
+               }
 
                if (this.mc.gameSettings.attackIndicator == AttackIndicatorStatus.CROSSHAIR) {
 

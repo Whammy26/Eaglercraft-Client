@@ -370,12 +370,16 @@ public class GameRenderer implements AutoCloseable, IResourceManagerReloadListen
          if (!ifluidstate.isEmpty()) {
             d0 = d0 * 60.0D / 70.0D;
          }
+         net.lax1dude.eaglercraft.get.modules.combat.ZoomModule zoomModule = net.lax1dude.eaglercraft.get.GetClient.get(net.lax1dude.eaglercraft.get.modules.combat.ZoomModule.class);
+         boolean customZoom = zoomModule != null && zoomModule.isEnabled();
+         double zoomSpeed = customZoom ? zoomModule.getSpeed() : 0.1D;
+         double zoomDefault = customZoom ? zoomModule.getDefaultZoom() : 0.25D;
          if (this.mc.gameSettings.keyBindZoom.isKeyDown()) {
-            this.zoomProgress += (this.zoomTarget - this.zoomProgress) * 0.1D * (double)p_215311_2_;
+            this.zoomProgress += (this.zoomTarget - this.zoomProgress) * zoomSpeed * (double)p_215311_2_;
          } else {
-            this.zoomProgress += (1.0D - this.zoomProgress) * 0.1D * (double)p_215311_2_;
+            this.zoomProgress += (1.0D - this.zoomProgress) * zoomSpeed * (double)p_215311_2_;
 
-            this.zoomTarget = 0.25D;
+            this.zoomTarget = zoomDefault;
          }
 
          d0 *= this.zoomProgress;

@@ -270,7 +270,10 @@ abstract class AbstractMapBasedMultimap<K, V> extends AbstractMultimap<K, V> imp
         // We don't deal with NavigableSet here yet for GWT reasons -- instead,
         // non-GWT TreeMultimap explicitly overrides this and uses NavigableSet.
         if (collection instanceof SortedSet) {
-            return Collections.unmodifiableSortedSet((SortedSet<V>) collection);
+            // TeaVM's classlib does not implement Collections.unmodifiableSortedSet();
+            // this codebase never uses SortedSetMultimap/TreeMultimap at runtime, so fall
+            // back to a plain unmodifiable Set instead of pulling in the missing method.
+            return Collections.unmodifiableSet((SortedSet<V>) collection);
         } else if (collection instanceof Set) {
             return Collections.unmodifiableSet((Set<V>) collection);
         } else if (collection instanceof List) {

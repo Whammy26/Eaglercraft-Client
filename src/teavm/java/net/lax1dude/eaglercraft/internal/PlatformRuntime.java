@@ -17,6 +17,7 @@ import net.lax1dude.eaglercraft.EaglercraftUUID;
 import net.lax1dude.eaglercraft.EaglercraftVersion;
 import net.lax1dude.eaglercraft.Filesystem;
 import net.lax1dude.eaglercraft.KeyboardConstants;
+import net.lax1dude.eaglercraft.internal.teavm.FixWebMDurationJS;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

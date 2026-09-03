@@ -341,6 +341,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
 
     private void init() {
         this.gameSettings = new GameSettings(this, this.gameDir);
+        net.lax1dude.eaglercraft.get.GetClient.init();
         this.session = new Session(EaglerProfile.username, "1", "-", "legacy");
         this.creativeSettings = new CreativeSettings(this.gameDir, this.dataFixer);
         this.startTimerHackThread();
@@ -1129,6 +1130,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     }
 
     private void clickMouse() {
+        net.lax1dude.eaglercraft.get.GetClient.onLeftClick();
         if (this.leftClickCounter <= 0) {
             if (this.objectMouseOver == null) {
                 LOGGER.error("Null returned as 'hitResult', this shouldn't happen!");
@@ -1139,7 +1141,9 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
             } else if (!this.player.isRowingBoat()) {
                 switch (this.objectMouseOver.getType()) {
                     case ENTITY:
-                        this.playerController.attackEntity(this.player, ((EntityRayTraceResult) this.objectMouseOver).getEntity());
+                        net.minecraft.entity.Entity attackTarget = ((EntityRayTraceResult) this.objectMouseOver).getEntity();
+                        this.playerController.attackEntity(this.player, attackTarget);
+                        net.lax1dude.eaglercraft.get.GetClient.onEntityHit(attackTarget);
                         break;
                     case BLOCK:
                         BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult) this.objectMouseOver;
@@ -1162,6 +1166,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
     }
 
     private void rightClickMouse() {
+        net.lax1dude.eaglercraft.get.GetClient.onRightClick();
         if (!this.playerController.getIsHittingBlock()) {
             this.rightClickDelayTimer = 4;
             if (!this.player.isRowingBoat()) {
@@ -1352,6 +1357,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.profiler.endStartSection("keyboard");
         this.keyboardListener.tick();
         this.profiler.endSection();
+        net.lax1dude.eaglercraft.get.GetClient.onTick();
     }
 
     private void processKeyBinds() {
@@ -1480,6 +1486,9 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         WorkingScreen workingscreen = new WorkingScreen();
         workingscreen.displaySavingString(new TranslationTextComponent("connect.joining"));
         this.world = worldClientIn;
+        String getClientWorldKey = this.integratedServerIsRunning ? "sp_" + this.currentWorldFolderName
+                : (this.getCurrentServerData() != null ? this.getCurrentServerData().serverIP : "mp_unknown");
+        net.lax1dude.eaglercraft.get.GetClient.onWorldJoin(getClientWorldKey);
         this.func_213241_c(workingscreen);
         this.updateWorldRenderer(worldClientIn);
         if (!this.integratedServerIsRunning) {
@@ -1546,6 +1555,7 @@ public class Minecraft extends RecursiveEventLoop<Runnable> implements ISnooperI
         this.world = null;
         this.updateWorldRenderer((ClientWorld) null);
         this.player = null;
+        net.lax1dude.eaglercraft.get.GetClient.onWorldLeave();
     }
 
     private void func_213241_c(Screen screenIn) {

@@ -10,7 +10,7 @@ buildscript {
 
 plugins {
 	id("java")
-	id("org.teavm") version "0.9.2"
+	id("org.teavm") version "0.12.1-EAGLER-R3"
 
 	id("com.resentclient.oss.eaglercraft.build") version "0.0.0"
 }
@@ -20,11 +20,18 @@ java {
 	targetCompatibility = JavaVersion.VERSION_17
 }
 
+repositories {
+	maven {
+		name = "eagler-teavm"
+		url = uri("https://eaglercraft-teavm-fork.github.io/maven/")
+	}
+}
+
 sourceSets {
 	named("main") {
 		java.srcDirs(
-			"../src/teavm/java",
-			"../src/teavm-boot-menu/java"
+			"../src/main/java",
+			"../src/teavm/java"
 		)
 		resources.srcDirs(
 			"../src/teavm/resources"
@@ -35,8 +42,7 @@ sourceSets {
 dependencies {
 	teavm(teavm.libs.jso)
 	teavm(teavm.libs.jsoApis)
-	compileOnly("org.teavm:teavm-core:0.9.2") // workaround for a few hacks
-	implementation(rootProject)
+	compileOnly("org.teavm:teavm-core:0.12.1-EAGLER-R3") // workaround for a few hacks
 	implementation(libs.jorbis)
 	implementation(libs.bundles.common)
 }
@@ -45,15 +51,14 @@ val jsFolder = "javascript"
 val jsFileName = "classes.js"
 
 teavm.js {
-	obfuscated = true
-	sourceMap = true
+	obfuscated = false
+	sourceMap = false
 	targetFileName = "../$jsFileName"
-	optimization = OptimizationLevel.BALANCED // Change to "AGGRESSIVE" for release
+	optimization = OptimizationLevel.NONE // Change to "AGGRESSIVE" for release
 	outOfProcess = false
-	fastGlobalAnalysis = false
-	processMemory = 512
+	fastGlobalAnalysis = true
 	entryPointName.set("main")
-	mainClass = "net.lax1dude.eaglercraft.v1_8.internal.teavm.MainClass"
+	mainClass = "net.lax1dude.eaglercraft.internal.teavm.MainClass"
 	outputDir = file(jsFolder)
 	properties = mapOf("java.util.TimeZone.autodetect" to "true")
 	debugInformation = false

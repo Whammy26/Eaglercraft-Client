@@ -239,8 +239,10 @@ public class MouseHelper {
          }
 
          this.minecraft.getTutorial().onMouseMove(d2, d3);
-         if (this.minecraft.player != null) {
-            this.minecraft.player.rotateTowards(d2, d3 * (double)i);
+         if (net.lax1dude.eaglercraft.get.GetClient.isFreelookActive()) {
+            net.lax1dude.eaglercraft.get.GetClient.accumulateFreelook(d2, d3 * (double) i);
+         } else if (this.minecraft.player != null) {
+            this.minecraft.player.rotateTowards(d2, d3 * (double) i);
          }
 
       } else {

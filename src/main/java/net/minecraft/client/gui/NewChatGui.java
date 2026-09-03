@@ -116,8 +116,14 @@ public class NewChatGui extends AbstractGui {
     }
 
     public void printChatMessageWithOptionalDeletion(ITextComponent chatComponent, int chatLineId) {
+        chatComponent = net.lax1dude.eaglercraft.get.GetClient.applyChatTimestamp(chatComponent);
         this.setChatLine(chatComponent, chatLineId, this.mc.ingameGUI.getTicks(), false);
         LOGGER.info("[CHAT] {}", (Object) chatComponent.getString().replaceAll("\r", "\\\\r").replaceAll("\n", "\\\\n"));
+    }
+
+    /** Read-only snapshot of recent chat lines (newest first), for custom chat rendering/search. */
+    public List<ChatLine> getRecentLines() {
+        return new java.util.ArrayList<>(this.chatLines);
     }
 
     private void setChatLine(ITextComponent chatComponent, int chatLineId, int updateCounter, boolean displayOnly) {

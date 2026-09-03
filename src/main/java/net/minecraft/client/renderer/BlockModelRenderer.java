@@ -350,7 +350,7 @@ public class BlockModelRenderer {
         private final int[] vertexBrightness = new int[4];
         private final BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 
-        private static class AoFaceData {
+        private class AoFaceData {
             boolean hasData;
             float f9, f10, f11, f12;
             int i2, j2, k2, l2;

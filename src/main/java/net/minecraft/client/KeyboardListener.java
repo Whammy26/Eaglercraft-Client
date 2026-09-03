@@ -248,6 +248,9 @@ public class KeyboardListener {
         }
 
         INestedGuiEventHandler inestedguieventhandler = this.mc.currentScreen;
+        if (action == 1 && this.mc.currentScreen == null && net.lax1dude.eaglercraft.get.GetClient.onKeyPress(key)) {
+            return;
+        }
         if (action == 1 && (!(this.mc.currentScreen instanceof ControlsScreen) || ((ControlsScreen) inestedguieventhandler).time <= Util.milliTime() - 20L)) {
             if (this.mc.gameSettings.keyBindFullscreen.matchesKey(key, scanCode)) {
                 this.mc.mainWindow.toggleFullscreen();

@@ -158,6 +158,7 @@ public abstract class ContainerScreen<T extends Container> extends Screen implem
       GlStateManager.enableLighting();
       GlStateManager.enableDepthTest();
       RenderHelper.enableStandardItemLighting();
+      net.lax1dude.eaglercraft.get.GetClient.renderItemSearchOverlay(this.guiLeft, this.guiTop, this.font, this.container);
    }
 
    protected void renderHoveredToolTip(int p_191948_1_, int p_191948_2_) {
@@ -519,6 +520,10 @@ public abstract class ContainerScreen<T extends Container> extends Screen implem
    }
 
    public boolean keyPressed(int p_keyPressed_1_, int p_keyPressed_2_, int p_keyPressed_3_) {
+      net.lax1dude.eaglercraft.get.modules.misc.ItemSearchModule itemSearch = net.lax1dude.eaglercraft.get.GetClient.get(net.lax1dude.eaglercraft.get.modules.misc.ItemSearchModule.class);
+      if (p_keyPressed_1_ == 259 && itemSearch != null && itemSearch.handleBackspace()) {
+         return true;
+      }
       if (super.keyPressed(p_keyPressed_1_, p_keyPressed_2_, p_keyPressed_3_)) {
          return true;
       } else {
@@ -539,6 +544,14 @@ public abstract class ContainerScreen<T extends Container> extends Screen implem
 
          return true;
       }
+   }
+
+   @Override
+   public boolean charTyped(char p_charTyped_1_, int p_charTyped_2_) {
+      if (net.lax1dude.eaglercraft.get.GetClient.handleItemSearchChar(p_charTyped_1_)) {
+         return true;
+      }
+      return super.charTyped(p_charTyped_1_, p_charTyped_2_);
    }
 
    protected boolean func_195363_d(int p_195363_1_, int p_195363_2_) {

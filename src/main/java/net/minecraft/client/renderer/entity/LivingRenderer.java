@@ -224,9 +224,17 @@ public abstract class LivingRenderer<T extends LivingEntity, M extends EntityMod
          float constB;
          float factor;
          if (flag1) {
-            constR = 1.0F;
-            constG = 0.0F;
-            constB = 0.0F;
+            net.lax1dude.eaglercraft.get.modules.combat.HitColorModule hitColor = net.lax1dude.eaglercraft.get.GetClient.get(net.lax1dude.eaglercraft.get.modules.combat.HitColorModule.class);
+            if (hitColor != null && hitColor.isEnabled()) {
+               int hc = hitColor.getColor();
+               constR = ((hc >> 16) & 0xFF) / 255.0F;
+               constG = ((hc >> 8) & 0xFF) / 255.0F;
+               constB = (hc & 0xFF) / 255.0F;
+            } else {
+               constR = 1.0F;
+               constG = 0.0F;
+               constB = 0.0F;
+            }
             factor = 0.3F;
          } else {
             float f1 = (float)(i >> 24 & 255) / 255.0F;
@@ -340,7 +348,7 @@ public abstract class LivingRenderer<T extends LivingEntity, M extends EntityMod
          double d0 = entity.getDistanceSq(this.renderManager.info.getProjectedView());
          float f = entity.shouldRenderSneaking() ? 32.0F : 64.0F;
          if (!(d0 >= (double)(f * f))) {
-            String s = entity.getDisplayName().getFormattedText();
+            String s = net.lax1dude.eaglercraft.get.GetClient.enhanceNameTag(entity, entity.getDisplayName().getFormattedText());
             GlStateManager.alphaFunc(516, 0.1F);
             this.renderEntityName(entity, x, y, z, s, d0);
          }

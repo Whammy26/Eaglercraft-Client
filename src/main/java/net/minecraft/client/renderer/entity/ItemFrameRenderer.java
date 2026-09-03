@@ -32,6 +32,9 @@ public class ItemFrameRenderer extends EntityRenderer<ItemFrameEntity> {
     }
 
     public void doRender(ItemFrameEntity entity, double x, double y, double z, float entityYaw, float partialTicks) {
+        if (net.lax1dude.eaglercraft.get.GetClient.isItemFramesHidden()) {
+            return;
+        }
         GlStateManager.pushMatrix();
         BlockPos blockpos = entity.getHangingPosition();
         double d0 = (double) blockpos.getX() - entity.posX + x;

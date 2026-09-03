@@ -222,6 +222,7 @@ public class EntityRendererManager {
       this.register(SpectralArrowEntity.class, new SpectralArrowRenderer(this));
       this.register(TridentEntity.class, new TridentRenderer(this));
       this.register(SnowballEntity.class, new SpriteRenderer<>(this, p_i50971_2_));
+      this.register(net.minecraft.entity.projectile.WindChargeEntity.class, new WindChargeRenderer(this));
       this.register(EnderPearlEntity.class, new SpriteRenderer<>(this, p_i50971_2_));
       this.register(EyeOfEnderEntity.class, new SpriteRenderer<>(this, p_i50971_2_));
       this.register(EggEntity.class, new SpriteRenderer<>(this, p_i50971_2_));

@@ -189,7 +189,8 @@ public class GameSettings {
          AbstractOption.RENDER_DISTANCE.func_216728_a(16.0F);
       }
 
-      this.renderDistanceChunks = mcIn.isJava64bit() ? 8 : 4;
+      // Lower default so software-rendered/VM environments don't try to render the whole world at once
+      this.renderDistanceChunks = 2;
       this.screenRecordCodec = ScreenRecordingController.getDefaultCodec();
       this.loadOptions();
    }

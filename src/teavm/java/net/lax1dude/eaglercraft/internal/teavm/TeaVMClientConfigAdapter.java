@@ -300,7 +300,6 @@ public class TeaVMClientConfigAdapter implements IClientConfigAdapter {
         return integratedServerOpts;
     }
 
-    @Override
     public List<RelayEntry> getRelays() {
         return relays;
     }

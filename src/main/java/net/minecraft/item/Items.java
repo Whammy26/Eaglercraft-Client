@@ -615,6 +615,7 @@ public class Items {
     public static final Item SADDLE = register("saddle", new SaddleItem((new Item.Properties()).maxStackSize(1).group(ItemGroup.TRANSPORTATION)));
     public static final Item REDSTONE = register("redstone", new BlockNamedItem(Blocks.REDSTONE_WIRE, (new Item.Properties()).group(ItemGroup.REDSTONE)));
     public static final Item SNOWBALL = register("snowball", new SnowballItem((new Item.Properties()).maxStackSize(16).group(ItemGroup.MISC)));
+    public static final Item WIND_CHARGE = register("wind_charge", new WindChargeItem((new Item.Properties()).maxStackSize(64).group(ItemGroup.MISC)));
     public static final Item OAK_BOAT = register("oak_boat", new BoatItem(BoatEntity.Type.OAK, (new Item.Properties()).maxStackSize(1).group(ItemGroup.TRANSPORTATION)));
     public static final Item LEATHER = register("leather", new Item((new Item.Properties()).group(ItemGroup.MATERIALS)));
     public static final Item MILK_BUCKET = register("milk_bucket", new MilkBucketItem((new Item.Properties()).containerItem(BUCKET).maxStackSize(1).group(ItemGroup.MISC)));

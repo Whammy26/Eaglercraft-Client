@@ -1,7 +1,5 @@
 package net.lax1dude.eaglercraft.internal.teavm.generators;
 
-import java.io.IOException;
-
 import org.teavm.backend.javascript.codegen.SourceWriter;
 import org.teavm.backend.javascript.spi.Generator;
 import org.teavm.backend.javascript.spi.GeneratorContext;
@@ -32,7 +30,7 @@ public class TeaVMUtilsUnwrapGenerator {
     public static class UnwrapArrayBuffer implements Injector {
 
         @Override
-        public void generate(InjectorContext context, MethodReference methodRef) throws IOException {
+        public void generate(InjectorContext context, MethodReference methodRef) {
             context.writeExpr(context.getArgument(0));
             context.getWriter().append(".data.buffer");
         }
@@ -42,7 +40,7 @@ public class TeaVMUtilsUnwrapGenerator {
     public static class UnwrapTypedArray implements Injector {
 
         @Override
-        public void generate(InjectorContext context, MethodReference methodRef) throws IOException {
+        public void generate(InjectorContext context, MethodReference methodRef) {
             context.writeExpr(context.getArgument(0));
             context.getWriter().append(".data");
         }
@@ -52,8 +50,7 @@ public class TeaVMUtilsUnwrapGenerator {
     public static class WrapArrayBuffer implements Generator {
 
         @Override
-        public void generate(GeneratorContext context, SourceWriter writer, MethodReference methodRef)
-                throws IOException {
+        public void generate(GeneratorContext context, SourceWriter writer, MethodReference methodRef) {
             String parName = context.getParameterName(1);
             switch (methodRef.getName()) {
                 case "wrapByteArrayBuffer":
@@ -86,8 +83,7 @@ public class TeaVMUtilsUnwrapGenerator {
     public static class WrapArrayBufferView implements Generator {
 
         @Override
-        public void generate(GeneratorContext context, SourceWriter writer, MethodReference methodRef)
-                throws IOException {
+        public void generate(GeneratorContext context, SourceWriter writer, MethodReference methodRef) {
             String parName = context.getParameterName(1);
             switch (methodRef.getName()) {
                 case "wrapByteArrayBufferView":
@@ -121,8 +117,7 @@ public class TeaVMUtilsUnwrapGenerator {
     public static class WrapTypedArray implements Generator {
 
         @Override
-        public void generate(GeneratorContext context, SourceWriter writer, MethodReference methodRef)
-                throws IOException {
+        public void generate(GeneratorContext context, SourceWriter writer, MethodReference methodRef) {
             String parName = context.getParameterName(1);
             switch (methodRef.getName()) {
                 case "wrapByteArray":
@@ -155,7 +150,7 @@ public class TeaVMUtilsUnwrapGenerator {
     public static class UnwrapUnsignedTypedArray implements Injector {
 
         @Override
-        public void generate(InjectorContext context, MethodReference methodRef) throws IOException {
+        public void generate(InjectorContext context, MethodReference methodRef) {
             context.getWriter().append("new Uint8Array(");
             context.writeExpr(context.getArgument(0));
             context.getWriter().append(".data.buffer)");

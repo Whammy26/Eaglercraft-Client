@@ -206,6 +206,7 @@ public class EntityType<T extends Entity> {
    public static final EntityType<SmallFireballEntity> SMALL_FIREBALL = register("small_fireball", EntityType.Builder.<SmallFireballEntity>create(SmallFireballEntity::new, EntityClassification.MISC).size(0.3125F, 0.3125F));
    public static final EntityType<SnowGolemEntity> SNOW_GOLEM = register("snow_golem", EntityType.Builder.create(SnowGolemEntity::new, EntityClassification.MISC).size(0.7F, 1.9F));
    public static final EntityType<SnowballEntity> SNOWBALL = register("snowball", EntityType.Builder.<SnowballEntity>create(SnowballEntity::new, EntityClassification.MISC).size(0.25F, 0.25F));
+   public static final EntityType<net.minecraft.entity.projectile.WindChargeEntity> WIND_CHARGE = register("wind_charge", EntityType.Builder.<net.minecraft.entity.projectile.WindChargeEntity>create(net.minecraft.entity.projectile.WindChargeEntity::new, EntityClassification.MISC).size(0.3125F, 0.3125F));
    public static final EntityType<SpectralArrowEntity> SPECTRAL_ARROW = register("spectral_arrow", EntityType.Builder.<SpectralArrowEntity>create(SpectralArrowEntity::new, EntityClassification.MISC).size(0.5F, 0.5F));
    public static final EntityType<SpiderEntity> SPIDER = register("spider", EntityType.Builder.create(SpiderEntity::new, EntityClassification.MONSTER).size(1.4F, 0.9F));
    public static final EntityType<SquidEntity> SQUID = register("squid", EntityType.Builder.create(SquidEntity::new, EntityClassification.WATER_CREATURE).size(0.8F, 0.8F));

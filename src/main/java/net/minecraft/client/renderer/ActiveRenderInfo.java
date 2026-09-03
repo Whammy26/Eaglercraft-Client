@@ -39,6 +39,10 @@ public class ActiveRenderInfo {
       this.thirdPerson = thirdPersonIn;
       this.thirdPersonReverse = thirdPersonReverseIn;
       this.setDirection(renderViewEntity.getYaw(partialTicks), renderViewEntity.getPitch(partialTicks));
+      if (!thirdPersonIn && net.lax1dude.eaglercraft.get.GetClient.isFreelookActive()) {
+         float[] freelook = net.lax1dude.eaglercraft.get.GetClient.getFreelookAngles();
+         this.setDirection(freelook[0], freelook[1]);
+      }
       this.setPosition(MathHelper.lerp((double)partialTicks, renderViewEntity.prevPosX, renderViewEntity.posX), MathHelper.lerp((double)partialTicks, renderViewEntity.prevPosY, renderViewEntity.posY) + (double)MathHelper.lerp(partialTicks, this.previousHeight, this.height), MathHelper.lerp((double)partialTicks, renderViewEntity.prevPosZ, renderViewEntity.posZ));
       if (thirdPersonIn) {
          if (thirdPersonReverseIn) {

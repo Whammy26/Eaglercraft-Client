@@ -96,6 +96,7 @@ public class DebugOverlayGui extends AbstractGui {
 
     protected void renderDebugInfoLeft() {
         List<String> list = this.call();
+        net.lax1dude.eaglercraft.get.GetClient.appendDebugInfo(list);
         list.add("");
         boolean flag = this.mc.getIntegratedServer() != null;
         list.add("Debug: Pie [shift]: " + (this.mc.gameSettings.showDebugProfilerChart ? "visible" : "hidden") + (flag ? " FPS + TPS" : " FPS") + " [alt]: " + (this.mc.gameSettings.showLagometer ? "visible" : "hidden"));

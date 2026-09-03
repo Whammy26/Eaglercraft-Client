@@ -16,6 +16,11 @@ allprojects {
 			}
 		}
 	}
+
+	tasks.withType<JavaCompile> {
+		options.isFork = true
+		options.forkOptions.jvmArgs = listOf("-Xmx1536m")
+	}
 }
 
 java {
@@ -30,7 +35,9 @@ sourceSets {
 			"src/game/java",
 			"src/protocol-game/java",
 			"src/protocol-relay/java",
-			"src/platform-api/java"
+			"src/platform-api/java",
+			"src/teavm/java",
+			"src/teavm-boot-menu/java"
 		)
 	}
 }
