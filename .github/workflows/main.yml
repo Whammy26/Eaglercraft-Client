@@ -23,7 +23,7 @@ jobs:
       - name: Build WASM-GC
         run: |
           chmod +x ./gradlew
-          ./gradlew target_teavm_wasm_gc:assembleMainComponents --no-daemon --max-workers=1
+          ./gradlew target_teavm_wasm_gc:makeMainWasmClientBundle --no-daemon --max-workers=1
 
       - name: Check build output
         run: |
