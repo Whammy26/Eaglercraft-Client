@@ -1,0 +1,41 @@
+name: Build GET Client v1.1 WASM
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build WASM-GC
+        run: |
+          chmod +x ./gradlew
+          ./gradlew target_teavm_wasm_gc:assembleMainComponents --no-daemon --max-workers=1
+
+      - name: Check build output
+        run: |
+          echo "=== WASM BUILD OUTPUT ==="
+          ls -lah target_teavm_wasm_gc/javascript
+          echo "=== WASM FILES ==="
+          find target_teavm_wasm_gc/javascript -type f | sort
+
+      - name: Upload WASM build
+        uses: actions/upload-artifact@v4
+        with:
+          name: GET-Client-v1.1-WASM
+          path: target_teavm_wasm_gc/javascript/
+          if-no-files-found: error
+          retention-days: 7
